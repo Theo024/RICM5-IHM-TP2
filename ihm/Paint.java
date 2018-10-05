@@ -17,6 +17,7 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
@@ -106,6 +107,18 @@ class Paint extends JFrame {
                  }
                  rect.setRect(Math.min(e.getX(), o.getX()), Math.min(e.getY(), o.getY()), Math.abs(e.getX() - o.getX()),
                          Math.abs(e.getY() - o.getY()));
+                 panel.repaint();
+             }
+         }, new Tool("ellipse") {
+             @Override
+             public void mouseDragged(MouseEvent e) {
+                 Ellipse2D.Double ellipse = (Ellipse2D.Double) shape;
+                 if (ellipse == null) {
+                     ellipse = new Ellipse2D.Double(o.getX(), o.getY(), 0, 0);
+                     shapes.add(shape = ellipse);
+                 }
+                 ellipse.setFrame(Math.min(e.getX(), o.getX()), Math.min(e.getY(), o.getY()),
+                         Math.abs(e.getX() - o.getX()), Math.abs(e.getY() - o.getY()));
                  panel.repaint();
              }
          } };
