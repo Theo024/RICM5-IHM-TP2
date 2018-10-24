@@ -8,18 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+
+import ihm.paint.Paint;
 
 public class Main {
 
     // Ceci est le point d'entrée du programme :)
     public static void main(String[] args) {
-        JFrame mainFrame = new JFrame();
-        mainFrame.getContentPane().setLayout(new BorderLayout());
-        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JFrame paint = new Paint("paint");
+
+        paint.getContentPane().setLayout(new BorderLayout());
+        paint.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CircularMenu menu = new CircularMenu(1000, 1000, 125, 50);
 
+        // AJout de nos labels, notre menu supporte un nombre modulaire de label avec
+        // répartition équitable -> voir méthode build() du menu
         List<MenuLabel> items = new ArrayList<>();
         items.add(new MenuLabel("1", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
         items.add(new MenuLabel("2", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
@@ -36,13 +43,12 @@ public class Main {
         menu.setItems(items);
 
         menu.setVisible(false);
-        mainFrame.add(menu);
+        paint.add(menu);
 
-        mainFrame.setSize(1000, 1000);
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setVisible(true);
-        mainFrame.setLayout(null);
-        mainFrame.addMouseListener(new MouseListener() {
+        paint.setSize(1000, 1000);
+        paint.setVisible(true);
+        paint.setLayout(null);
+        paint.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -62,8 +68,11 @@ public class Main {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                menu.setVisible(true);
-                menu.setLocation(e.getX() - 1000 / 2, e.getY() - 1000 / 2);
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    System.out.println("teub");
+                    menu.setVisible(true);
+                    menu.setLocation(e.getX() - 1000 / 2, e.getY() - 1000 / 2);
+                }
             }
 
         });

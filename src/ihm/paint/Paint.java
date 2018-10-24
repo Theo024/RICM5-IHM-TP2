@@ -21,6 +21,8 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -33,10 +35,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputListener;
 
+import ihm.circularmenu.CircularMenu;
+import ihm.circularmenu.MenuLabel;
+
 /* paint *******************************************************************/
 
 @SuppressWarnings("serial")
-class Paint extends JFrame {
+public class Paint extends JFrame {
     Vector<Shape> shapes        = new Vector<>();
     Vector<Color> colors        = new Vector<>();
     Color         colorSelected = Color.BLACK;
@@ -101,6 +106,13 @@ class Paint extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (SwingUtilities.isRightMouseButton(e)) {
+                System.out.println("teub");
+
+                menu.setVisible(true);
+                menu.setLocation(e.getX() - 1000 / 2, e.getY() - 1000 / 2);
+                menu.repaint();
+            }
         }
 
         @Override
@@ -174,6 +186,8 @@ class Paint extends JFrame {
 
     JPanel panel;
 
+    CircularMenu menu;
+
     public Paint(String title) {
         super(title);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -211,16 +225,68 @@ class Paint extends JFrame {
 
         pack();
         setVisible(true);
+
+        menu = new CircularMenu(1000, 1000, 125, 50);
+
+        List<MenuLabel> items = new ArrayList<>();
+        items.add(new MenuLabel("1", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("2", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("3", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("4", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("5", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("6", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("7", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("8", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("9", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("10", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("11", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+
+        menu.setItems(items);
+
+        menu.setVisible(false);
+        this.add(menu);
+
+        this.setSize(1000, 1000);
+        setVisible(true);
+        setLayout(null);
+        addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    System.out.println("teub");
+                    menu.setVisible(true);
+                    menu.setLocation(e.getX() - 1000 / 2, e.getY() - 1000 / 2);
+                }
+            }
+
+        });
     }
 
     /* main *********************************************************************/
 
-    public static void main(String argv[]) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Paint("paint");
-            }
-        });
+    public static void main(String[] args) {
+
+        JFrame paint = new Paint("paint");
+
+        paint.getContentPane().setLayout(new BorderLayout());
+        paint.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
     }
 }
