@@ -1,4 +1,4 @@
-package ihm.menu;
+package ihm.circularmenu;
 
 import java.util.List;
 
