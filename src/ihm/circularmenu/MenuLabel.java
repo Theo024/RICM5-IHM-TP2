@@ -18,13 +18,15 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class MenuLabel extends JPanel {
 
-    private int    size;
-    private Color  color;
-    private Color  activeColor;
-    private Color  idleColor;
-    private String texte;
+    private int          size;
+    private Color        color;
+    private Color        activeColor;
+    private Color        idleColor;
+    private String       texte;
+    private CircularMenu menu;
 
-    public MenuLabel(String text, Color idleColor, Color activeColor, int size) {
+    public MenuLabel(String text, Color idleColor, Color activeColor, int size, CircularMenu menu) {
+        this.menu = menu;
         color = idleColor;
         this.idleColor = idleColor;
         this.activeColor = activeColor;
@@ -44,6 +46,8 @@ public class MenuLabel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                menu.setVisible(false);
+                System.out.println(texte);
             }
 
             @Override

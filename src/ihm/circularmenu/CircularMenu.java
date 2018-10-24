@@ -11,12 +11,15 @@ public class CircularMenu extends JPanel {
     private int             size;
     private int             radius;
 
-    public CircularMenu(int width, int height, int radius, int size, List<MenuLabel> items) {
-        this.items = items;
+    public CircularMenu(int width, int height, int radius, int size) {
         this.size = size;
         this.radius = radius;
         setSize(width, height);
         setLayout(null);
+    }
+
+    public void setItems(List<MenuLabel> items) {
+        this.items = items;
         build();
     }
 

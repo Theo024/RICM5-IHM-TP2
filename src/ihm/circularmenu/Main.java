@@ -18,20 +18,23 @@ public class Main {
         mainFrame.getContentPane().setLayout(new BorderLayout());
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        List<MenuLabel> items = new ArrayList<>();
-        items.add(new MenuLabel("1", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("2", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("3", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("4", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("5", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("6", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("7", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("8", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("9", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("10", new Color(255, 0, 0), new Color(0, 255, 0), 100));
-        items.add(new MenuLabel("11", new Color(255, 0, 0), new Color(0, 255, 0), 100));
+        CircularMenu menu = new CircularMenu(1000, 1000, 125, 50);
 
-        CircularMenu menu = new CircularMenu(1000, 1000, 125, 50, items);
+        List<MenuLabel> items = new ArrayList<>();
+        items.add(new MenuLabel("1", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("2", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("3", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("4", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("5", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("6", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("7", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("8", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("9", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("10", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+        items.add(new MenuLabel("11", new Color(255, 0, 0), new Color(0, 255, 0), 100, menu));
+
+        menu.setItems(items);
+
         menu.setVisible(false);
         mainFrame.add(menu);
 
@@ -43,13 +46,10 @@ public class Main {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                menu.setVisible(false);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                menu.setVisible(true);
-                menu.setLocation(e.getX() - 1000 / 2, e.getY() - 1000 / 2);
             }
 
             @Override
@@ -62,6 +62,8 @@ public class Main {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                menu.setVisible(true);
+                menu.setLocation(e.getX() - 1000 / 2, e.getY() - 1000 / 2);
             }
 
         });
